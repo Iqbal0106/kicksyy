@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cart | Kicksy</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body class="gradient-bg">
+
+<header class="header">
+  <div class="bar main">
+    <div class="logo" onclick="window.location.href='index.html'" style="cursor:pointer">KICKSY</div>
+    <div class="actions">
+      <div class="user-btn-container">
+        <button class="icon-btn" onclick="userButtonClick()" title="Akun"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></button>
+      </div>
+      <button class="icon-btn" onclick="openBag()" title="Keranjang">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+        <span class="badge" id="cartBadge">0</span>
+      </button>
+    </div>
+  </div>
+  <div class="bar sub">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Katalog</a>
+    <a href="index.html#promo">Promo</a>
+    <a href="index.html#best">Best Seller</a>
+  </div>
+</header>
+
+<section class="cart-page">
+  <h2>Your Cart</h2>
+
+  <div class="cart-grid-layout">
+    <!-- ITEMS -->
+    <div id="cartItems"></div>
+
+    <!-- SUMMARY -->
+    <div class="cart-summary">
+      <h3 style="font-size: 1.5rem; font-weight: 900; text-transform: uppercase;">Ringkasan Pesanan</h3>
+      
+      <div style="display: flex; flex-direction: column; gap: 1rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <div style="display: flex; justify-content: space-between;">
+          <span>Subtotal</span>
+          <strong id="cartSubtotal">Rp 0</strong>
+        </div>
+        
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <label for="shipCity" style="font-size: 0.8rem; color: var(--muted); text-transform: uppercase; font-weight: 700;">Kota / Kabupaten / Provinsi</label>
+          <div style="display: flex; gap: 0.5rem;">
+            <input type="text" id="shipCity" placeholder="Masukkan kota..." style="flex: 1; padding: 0.8rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #fff;">
+            <button class="btn outline" onclick="calcShip()" style="padding: 0 1rem; font-size: 0.8rem;">Cek</button>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between;">
+          <span>Ongkos Kirim</span>
+          <strong id="shipCost">Rp 0</strong>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+        <span style="font-size: 1.2rem; font-weight: 700;">Total</span>
+        <span id="cartTotal" style="font-size: 1.8rem; font-weight: 900; color: var(--accent);">Rp 0</span>
+      </div>
+
+      <button class="btn" onclick="openCheckout()" style="margin-top: 1rem;">Lanjut ke Checkout</button>
+    </div>
+  </div>
+</section>
+
+<!-- JS -->
+<script src="script.js"></script>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">KICKSY</div>
+      <p>Destinasi utama sneakerhead Indonesia untuk koleksi brand global dan lokal terbaik.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Belanja</h4>
+      <a href="index.html#catalog">Katalog</a>
+      <a href="index.html#promo">Promo</a>
+      <a href="index.html#best">Best Seller</a>
+    </div>
+    <div class="footer-links">
+      <h4>Bantuan</h4>
+      <a href="#">FAQ</a>
+      <a href="#">Pengiriman</a>
+      <a href="#">Kebijakan Pengembalian</a>
+    </div>
+    <div class="footer-links">
+      <h4>Ikuti Kami</h4>
+      <a href="https://instagram.com/kicksy.id">Instagram</a>
+      <a href="https://tiktok.com/@kicksy.id">TikTok</a>
+      <a href="https://wa.me/6287825462321">WhatsApp</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 kicksy.id — All Rights Reserved</p>
+  </div>
+</footer>
+
+<script>
+/* =====================
+   RENDER CART
+===================== */
+function renderCart() {
+  const cartItems = document.getElementById("cartItems");
+  const cartTotal = document.getElementById("cartTotal");
+  const cartSubtotal = document.getElementById("cartSubtotal");
+
+  cartItems.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += item.price * item.qty;
+
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        <img src="${item.image || 'images/placeholder.png'}" alt="${item.name}">
+        <div class="cart-info">
+          <h4>${item.name}</h4>
+          <p>Size: <strong>${item.size}</strong></p>
+          <p>Rp ${item.price.toLocaleString("id-ID")}</p>
+        </div>
+
+        <div class="cart-actions">
+          <button onclick="changeQty(${index}, -1)">−</button>
+          <span>${item.qty}</span>
+          <button onclick="changeQty(${index}, 1)">+</button>
+        </div>
+      </div>
+    `;
+  });
+
+  if (cartSubtotal) cartSubtotal.innerText = "Rp " + total.toLocaleString("id-ID");
+  const ship = Number(localStorage.getItem("shipCost") || 0);
+  if (cartTotal) cartTotal.innerText = "Rp " + (total + ship).toLocaleString("id-ID");
+  updateCartBadge();
+}
+
+/* =====================
+   QTY CONTROL
+===================== */
+function changeQty(index, delta) {
+  cart[index].qty += delta;
+
+  if (cart[index].qty <= 0) {
+    cart.splice(index, 1);
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+}
+
+/* =====================
+   SHIPPING & PAYMENT
+===================== */
+function calcShip() {
+  const cityInput = document.getElementById("shipCity").value.toLowerCase();
+  let cost = 40000; // Default flat rate
+  
+  // Basic matching for demo purposes
+  if (cityInput.includes("jakarta")) cost = 20000;
+  else if (cityInput.includes("bandung")) cost = 25000;
+  else if (cityInput.includes("surabaya")) cost = 35000;
+  else if (cityInput.includes("yogyakarta") || cityInput.includes("jogja")) cost = 30000;
+  else if (cityInput.includes("jawa")) cost = 35000;
+  else if (cityInput.includes("bali") || cityInput.includes("sumatera")) cost = 50000;
+  else cost = 60000; // Far regions
+
+  localStorage.setItem("shipCost", String(cost));
+  document.getElementById("shipCost").innerText = "Rp " + cost.toLocaleString("id-ID");
+  renderCart();
+}
+
+function openCheckout() {
+  if (cart.length === 0) {
+    alert("Keranjang masih kosong 😅");
+    return;
+  }
+  
+  // Create fullscreen overlay
+  const overlay = document.createElement("div");
+  overlay.className = "checkout-overlay active";
+  document.body.appendChild(overlay);
+  document.body.style.overflow = "hidden"; // Prevent scroll
+
+  const user = JSON.parse(localStorage.getItem("currentUser")||"null");
+  const state = {
+    step: 1,
+    name: user?.name || "",
+    email: user?.email || "",
+    phone: "",
+    address: "",
+    city: document.getElementById("shipCity").value || localStorage.getItem("lastCity") || "",
+    postal: "",
+    notes: "",
+    pay: "Bank BCA"
+  };
+
+  function getShipCost(cityText) {
+    const city = cityText.toLowerCase();
+    if (city.includes("jakarta")) return 20000;
+    if (city.includes("bandung")) return 25000;
+    if (city.includes("surabaya")) return 35000;
+    if (city.includes("yogyakarta") || city.includes("jogja")) return 30000;
+    if (city.includes("jawa")) return 35000;
+    return 60000;
+  }
+
+  function render() {
+    let subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
+    const ship = getShipCost(state.city);
+    localStorage.setItem("shipCost", String(ship));
+    
+    let contentHTML = "";
+    
+    // Header with close button
+    const headerHTML = `
+      <div class="bag-head" style="padding: 1.5rem 2rem;">
+        <div style="font-size: 1.5rem;">Checkout</div>
+        <button class="close" id="closeCheckout">×</button>
+      </div>
+    `;
+
+    // Step indicators
+    const stepsHTML = `
+      <div class="checkout-steps">
+        <div class="step-indicator ${state.step >= 1 ? 'active' : ''} ${state.step > 1 ? 'done' : ''}">
+          <div class="num">1</div>
+          <span>Kontak</span>
+        </div>
+        <div class="step-indicator ${state.step >= 2 ? 'active' : ''} ${state.step > 2 ? 'done' : ''}">
+          <div class="num">2</div>
+          <span>Alamat</span>
+        </div>
+        <div class="step-indicator ${state.step >= 3 ? 'active' : ''} ${state.step > 3 ? 'done' : ''}">
+          <div class="num">3</div>
+          <span>Pembayaran</span>
+        </div>
+        <div class="step-indicator ${state.step >= 4 ? 'active' : ''}">
+          <div class="num">4</div>
+          <span>Konfirmasi</span>
+        </div>
+      </div>
+    `;
+
+    // Form content based on step
+    let formHTML = "";
+    if (state.step === 1) {
+      formHTML = `
+        <div class="checkout-form-side">
+          <h2 style="font-size: 2rem; font-weight: 900; text-transform: uppercase;">Informasi Kontak</h2>
+          <div class="checkout-input-group">
+            <label>Nama Lengkap</label>
+            <input id="fName" placeholder="Nama Lengkap" value="${state.name}"/>
+          </div>
+          <div class="checkout-input-group">
+            <label>Alamat Email</label>
+            <input id="fEmail" type="email" placeholder="Email" value="${state.email}"/>
+          </div>
+          <div class="checkout-input-group">
+            <label>Nomor WhatsApp</label>
+            <input id="fPhone" placeholder="08xxx" value="${state.phone}"/>
+          </div>
+          <button class="btn" id="next" style="margin-top: 1rem;">Lanjut ke Alamat</button>
+        </div>
+      `;
+    } else if (state.step === 2) {
+      formHTML = `
+        <div class="checkout-form-side">
+          <h2 style="font-size: 2rem; font-weight: 900; text-transform: uppercase;">Alamat Pengiriman</h2>
+          <div class="checkout-input-group">
+            <label>Alamat Lengkap</label>
+            <textarea id="fAddr" placeholder="Nama Jalan, No. Rumah, dll." rows="3">${state.address}</textarea>
+          </div>
+          <div class="checkout-input-group">
+            <label>Kota / Kabupaten / Provinsi</label>
+            <input id="fCity" placeholder="Contoh: Jakarta Selatan, DKI Jakarta" value="${state.city}"/>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="checkout-input-group">
+              <label>Kode Pos</label>
+              <input id="fPostal" placeholder="12xxx" value="${state.postal}"/>
+            </div>
+            <div class="checkout-input-group">
+              <label>Catatan Kurir</label>
+              <input id="fNotes" placeholder="Opsional" value="${state.notes}"/>
+            </div>
+          </div>
+          <div style="display:flex; gap: 1rem; margin-top: 1rem;">
+            <button class="btn outline" id="back">Kembali</button>
+            <button class="btn" id="next" style="flex: 1;">Lanjut ke Pembayaran</button>
+          </div>
+        </div>
+      `;
+    } else if (state.step === 3) {
+      const payOptions = [
+        { name: "Bank BCA", type: "Bank" },
+        { name: "Bank Mandiri", type: "Bank" },
+        { name: "Bank BNI", type: "Bank" },
+        { name: "GoPay", type: "Wallet" },
+        { name: "OVO", type: "Wallet" },
+        { name: "Dana", type: "Wallet" },
+        { name: "ShopeePay", type: "Wallet" },
+        { name: "QRIS", type: "Wallet" },
+        { name: "COD", type: "Other" }
+      ];
+      
+      formHTML = `
+        <div class="checkout-form-side">
+          <h2 style="font-size: 2rem; font-weight: 900; text-transform: uppercase;">Metode Pembayaran</h2>
+          <div class="pay-card-grid">
+            ${payOptions.map(opt => `
+              <label class="pay-card ${state.pay === opt.name ? 'active' : ''}">
+                <input type="radio" name="pay" value="${opt.name}" ${state.pay === opt.name ? 'checked' : ''}/> 
+                <span>${opt.name}</span>
+              </label>
+            `).join("")}
+          </div>
+          <div style="display:flex; gap: 1rem; margin-top: 2rem;">
+            <button class="btn outline" id="back">Kembali</button>
+            <button class="btn" id="next" style="flex: 1;">Tinjau Pesanan</button>
+          </div>
+        </div>
+      `;
+    } else {
+      formHTML = `
+        <div class="checkout-form-side">
+          <h2 style="font-size: 2rem; font-weight: 900; text-transform: uppercase;">Konfirmasi Pesanan</h2>
+          <div style="background: rgba(255,255,255,0.03); padding: 2rem; border-radius: 24px; display: flex; flex-direction: column; gap: 1rem;">
+            <div><strong>Nama:</strong> ${state.name}</div>
+            <div><strong>HP:</strong> ${state.phone}</div>
+            <div><strong>Alamat:</strong> ${state.address}, ${state.city}, ${state.postal}</div>
+            <div><strong>Pembayaran:</strong> ${state.pay}</div>
+          </div>
+          <div style="display:flex; gap: 1rem; margin-top: 1rem;">
+            <button class="btn outline" id="back">Kembali</button>
+            <button class="btn" id="confirm" style="flex: 1;">Buat Pesanan Sekarang</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // Summary side
+    const summaryHTML = `
+      <div class="checkout-summary-side">
+        <h3>Ringkasan</h3>
+        <div class="summary-items">
+          ${cart.map(i => `
+            <div class="summary-item">
+              <span>${i.qty}x ${i.name} (Size ${i.size})</span>
+              <span>Rp ${(i.price * i.qty).toLocaleString("id-ID")}</span>
+            </div>
+          `).join("")}
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem;">
+          <div class="summary-item">
+            <span style="color: var(--muted);">Subtotal</span>
+            <span>Rp ${subtotal.toLocaleString("id-ID")}</span>
+          </div>
+          <div class="summary-item">
+            <span style="color: var(--muted);">Ongkos Kirim</span>
+            <span>Rp ${ship.toLocaleString("id-ID")}</span>
+          </div>
+        </div>
+        <div class="summary-total">
+          <span>Total</span>
+          <span>Rp ${(subtotal + ship).toLocaleString("id-ID")}</span>
+        </div>
+      </div>
+    `;
+
+    overlay.innerHTML = `
+      ${headerHTML}
+      <div class="checkout-container">
+        ${stepsHTML}
+        <div class="checkout-grid">
+          ${formHTML}
+          ${summaryHTML}
+        </div>
+      </div>
+    `;
+
+    // Event Listeners
+    overlay.querySelector("#closeCheckout").onclick = () => {
+      overlay.remove();
+      document.body.style.overflow = "";
+    };
+
+    if (state.step === 1) {
+      overlay.querySelector("#next").onclick = () => {
+        state.name = overlay.querySelector("#fName").value.trim();
+        state.email = overlay.querySelector("#fEmail").value.trim().toLowerCase();
+        state.phone = overlay.querySelector("#fPhone").value.trim();
+        if (!state.name || !state.email || !state.phone) {
+          alert("Lengkapi Data Diri");
+          return;
+        }
+        state.step = 2; render();
+      };
+    } else if (state.step === 2) {
+      overlay.querySelector("#back").onclick = () => { state.step = 1; render(); };
+      overlay.querySelector("#next").onclick = () => {
+        state.address = overlay.querySelector("#fAddr").value.trim();
+        state.city = overlay.querySelector("#fCity").value.trim();
+        state.postal = overlay.querySelector("#fPostal").value.trim();
+        if (overlay.querySelector("#fNotes")) state.notes = overlay.querySelector("#fNotes").value.trim();
+        if (!state.address || !state.city || !state.postal) {
+          alert("Lengkapi Alamat Pengiriman");
+          return;
+        }
+        localStorage.setItem("lastCity", state.city);
+        state.step = 3; render();
+      };
+      overlay.querySelector("#fCity").oninput = (e) => {
+        state.city = e.target.value;
+        // Small delay to prevent too many re-renders? Or just update ship cost in view
+        const ship = getShipCost(state.city);
+        const totals = overlay.querySelectorAll(".summary-total span")[1];
+        const shipDisplay = overlay.querySelectorAll(".summary-item span")[3];
+        if (shipDisplay) shipDisplay.innerText = "Rp " + ship.toLocaleString("id-ID");
+        if (totals) totals.innerText = "Rp " + (subtotal + ship).toLocaleString("id-ID");
+      };
+    } else if (state.step === 3) {
+      overlay.querySelector("#back").onclick = () => { state.step = 2; render(); };
+      overlay.querySelectorAll(".pay-card").forEach(card => {
+        card.onclick = () => {
+          state.pay = card.querySelector("input").value;
+          render();
+        };
+      });
+      overlay.querySelector("#next").onclick = () => {
+        state.step = 4; render();
+      };
+    } else if (state.step === 4) {
+      overlay.querySelector("#back").onclick = () => { state.step = 3; render(); };
+      overlay.querySelector("#confirm").onclick = () => {
+        const orderId = "KSY" + String(Date.now()).slice(-8);
+        const order = {
+          id: orderId,
+          items: cart,
+          subtotal,
+          ship: getShipCost(state.city),
+          total: subtotal + getShipCost(state.city),
+          method: state.pay,
+          contact: { name: state.name, email: state.email, phone: state.phone },
+          address: { address: state.address, city: state.city, postal: state.postal, notes: state.notes },
+          at: new Date().toISOString()
+        };
+        localStorage.setItem("lastOrder", JSON.stringify(order));
+        cart = [];
+        localStorage.setItem("cart", JSON.stringify(cart));
+        overlay.remove();
+        document.body.style.overflow = "";
+        window.location.href = "success.html?id=" + orderId;
+      };
+    }
+  }
+  render();
+}
+
+renderCart();
+</script>
+
+</body>
+</html>

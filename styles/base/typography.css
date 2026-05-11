@@ -1,0 +1,43 @@
+/* =====================
+   TYPOGRAPHY UTILITIES
+   Class teks yang dipakai di banyak tempat.
+===================== */
+.title {
+  font-weight: 800;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.section-title {
+  font-weight: 700;
+  margin-bottom: .5rem;
+}
+
+.view-all {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.tag {
+  background: #000;
+  border: 1px solid var(--muted);
+  color: var(--text);
+  font-size: .85rem;
+  padding: .35rem .6rem;
+  border-radius: 6px;
+}
+
+.tags {
+  display: flex;
+  gap: .6rem;
+  flex-wrap: wrap;
+}
+
+.empty-hint {
+  display: none;
+  color: var(--muted);
+  text-align: center;
+  padding: 1rem 0;
+}

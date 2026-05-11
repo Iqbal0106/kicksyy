@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sukses | Kicksy</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body class="gradient-bg">
+  <section class="cart-page">
+    <h2>Pembayaran Berhasil</h2>
+    <p id="orderId">Order ID: -</p>
+    <div id="orderSum"></div>
+    <div style="margin-top:1rem; display:flex; gap:.6rem">
+      <a class="btn outline" href="index.html">Kembali Belanja</a>
+      <a class="btn" href="index.html#best">Lihat Best Seller</a>
+    </div>
+  </section>
+
+<footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">KICKSY</div>
+        <p>Destinasi utama sneakerhead Indonesia untuk koleksi brand global dan lokal terbaik.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Belanja</h4>
+        <a href="index.html#catalog">Katalog</a>
+        <a href="index.html#promo">Promo</a>
+        <a href="index.html#best">Best Seller</a>
+      </div>
+      <div class="footer-links">
+        <h4>Bantuan</h4>
+        <a href="#">FAQ</a>
+        <a href="#">Pengiriman</a>
+        <a href="#">Kebijakan Pengembalian</a>
+      </div>
+      <div class="footer-links">
+        <h4>Ikuti Kami</h4>
+        <a href="https://instagram.com/kicksy.id">Instagram</a>
+        <a href="https://tiktok.com/@kicksy.id">TikTok</a>
+        <a href="https://wa.me/6287825462321">WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 kicksy.id — All Rights Reserved</p>
+    </div>
+  </footer>
+
+  <script>
+    function fmt(n){return "Rp " + Number(n||0).toLocaleString("id-ID");}
+    const url = new URL(window.location.href);
+    const qid = url.searchParams.get("id");
+    const order = JSON.parse(localStorage.getItem("lastOrder")||"null");
+    if (!order || (qid && order.id !== qid)) {
+      document.getElementById("orderSum").innerHTML = "<p>Order tidak ditemukan.</p>";
+    } else {
+      document.getElementById("orderId").innerText = "Order ID: " + order.id;
+      const items = order.items.map(i=> `<li>${i.name} — ${i.qty} × ${fmt(i.price)} (Size ${i.size})</li>`).join("");
+      document.getElementById("orderSum").innerHTML = `
+        <ul>${items}</ul>
+        <p>Subtotal: <strong>${fmt(order.subtotal)}</strong></p>
+        <p>Ongkir: <strong>${fmt(order.ship)}</strong></p>
+        <h3>Total: ${fmt(order.total)}</h3>
+        <p>Metode: <strong>${order.method}</strong></p>
+        <p>Nama: <strong>${order.contact?.name || "-"}</strong></p>
+        <p>Email: <strong>${order.contact?.email || "-"}</strong></p>
+        <p>HP: <strong>${order.contact?.phone || "-"}</strong></p>
+        <p>Alamat: <strong>${order.address ? (order.address.address + ", " + order.address.city + ", " + order.address.postal) : "-"}</strong></p>
+      `;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kicksy.id — Streetwear Sneakers</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="header">
+  <div class="bar top">
+    <div class="left">
+      <a href="#faq">FAQ</a>
+      <a href="#">pelacak pesanan</a>
+    </div>
+  </div>
+  <div class="bar main">
+  <img class="logo" src="images/logo kicksy.jpeg" alt="Kicksy.id logo" />
+  <div class="actions">
+    <div class="search">
+      <input id="searchInput" type="text" placeholder="Cari produk..." />
+      <span class="ico">
+        <!-- Search Icon (SVG) -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </span>
+    </div>
+    <div class="user-btn-container">
+      <button class="icon-btn" onclick="userButtonClick()" title="Akun">
+        <!-- User Icon (SVG) -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </button>
+    </div>
+    <button class="icon-btn" onclick="openBag()" title="Keranjang">
+      <!-- Cart Icon (SVG) -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+      </svg>
+      <span class="badge" id="cartBadge">0</span>
+    </button>
+  </div>
+</div>
+  <div class="bar sub">
+    <a href="index.html" class="active">Home</a>
+    <a href="shop.html">Katalog</a>
+    <a href="#promo">Promo</a>
+    <a href="#best">Best Seller</a>
+    <a href="#about">Tentang</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Streetwear Stars<br> From Your Feet</h1>
+    <p>Dapatkan koleksi sneakers terbaik dari brand global hingga lokal hanya di Kicksy.id</p>
+    <div class="hero-btns">
+      <a href="shop.html" class="btn">Belanja Sekarang</a>
+    </div>
+  </div>
+</section>
+
+<section class="product-section promo-section" id="promo">
+  <h2>Promo Minggu Ini</h2>
+  <div class="products promo-grid">
+    <div class="card promo-card" onclick="openDetail('Kanky x STAPLE EXC 01 Gosht White',540000,'images lokal/Kanky_x_STAPLE___EXC_01___Gosht_White_a_1761195600198_resized1024-jpg.webp','lokal')">
+      <div class="badge-promo">-10%</div>
+      <div class="promo-images">
+        <img src="images lokal/Kanky_x_STAPLE___EXC_01___Gosht_White_a_1761195600198_resized1024-jpg.webp" alt="Kanky x STAPLE 1">
+        <img src="images lokal/Kanky_x_STAPLE___EXC_01___Gosht_White_b_1761195600281_resized1024 4-jpg.webp" alt="Kanky x STAPLE 2">
+        <img src="images lokal/Kanky_x_STAPLE___EXC_01___Gosht_White_d_1761195600428_resized1024 2-jpg.webp" alt="Kanky x STAPLE 3">
+      </div>
+      <div class="title">Kanky x STAPLE EXC 01 Gosht White</div>
+      <div class="price-row">
+        <span class="price-old">Rp 600.000</span>
+        <span class="price">Rp 540.000</span>
+      </div>
+      <button class="btn" onclick="event.stopPropagation(); addToCart('Kanky x STAPLE EXC 01 Gosht White',540000,'images lokal/Kanky_x_STAPLE___EXC_01___Gosht_White_a_1761195600198_resized1024-jpg.webp')">Add to Cart</button>
+    </div>
+    <div class="card promo-card" onclick="openDetail('Kanky Story Kitadake - Kanky Sportstyle',440000,'images lokal/Kitadake___All_Black_a_1760412869132_resized1024-jpg.webp','lokal')">
+      <div class="badge-promo">-10%</div>
+      <div class="promo-images">
+        <img src="images lokal/Kitadake___All_Black_a_1760412869132_resized1024-jpg.webp" alt="Kitadake 1">
+        <img src="images lokal/Kitadake___All_Black_b_1760412869223_resized1024 3-jpg.webp" alt="Kitadake 2">
+        <img src="images lokal/Kitadake___All_Black_c_1760412869283_resized1024 2-jpg.webp" alt="Kitadake 3">
+      </div>
+      <div class="title">Kanky Story Kitadake</div>
+      <div class="price-row">
+        <span class="price-old">Rp 490.000</span>
+        <span class="price">Rp 440.000</span>
+      </div>
+      <button class="btn" onclick="event.stopPropagation(); addToCart('Kanky Story Kitadake - Kanky Sportstyle',440000,'images lokal/Kitadake___All_Black_a_1760412869132_resized1024-jpg.webp')">Add to Cart</button>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT SLIDER -->
+<section class="product-section">
+  <h2>Recommended For You</h2>
+
+  <div class="slider-wrapper">
+    <button class="slide-btn left" onclick="slideLeft()">‹</button>
+
+    <div class="product-slider" id="slider">
+      <div class="product-card" onclick="openDetail('Nike Dunk Low Retro',1549000,'images/Nike Dunk Low Retro 1.avif')">
+        <img src="images/Nike Dunk Low Retro 1.avif">
+        <h3>Nike Dunk Low Retro</h3>
+        <p class="variant">Sneakers Shoes · Black/White</p>
+        <p class="price">Rp 1.549.000</p>
+        <button onclick="event.stopPropagation(); addToCart('Nike Dunk Low Retro',1549000,'images/Nike Dunk Low Retro 1.avif')">Add to Cart</button>
+      </div>
+      <div class="product-card" onclick="openDetail('Nike Zoom Vomero 5',2489000,'images/Nike Zoom Vomero 5(1).avif')">
+        <img src="images/Nike Zoom Vomero 5(1).avif">
+        <h3>Nike Zoom Vomero 5</h3>
+        <p class="variant">Sneakers Shoes · Silver</p>
+        <p class="price">Rp 2.489.000</p>
+        <button onclick="event.stopPropagation(); addToCart('Nike Zoom Vomero 5',2489000,'images/Nike Zoom Vomero 5(1).avif')">Add to Cart</button>
+      </div>
+      <div class="product-card" onclick="openDetail('Adidas GAZELLE LO PRO SHOES',1700000,'images/Adidas GAZELLE LO PRO SHOES 1.avif')">
+        <img src="images/Adidas GAZELLE LO PRO SHOES 1.avif">
+        <h3>Adidas GAZELLE LO PRO SHOES</h3>
+        <p class="variant">Running · Black</p>
+        <p class="price">Rp 1.700.000</p>
+        <button onclick="event.stopPropagation(); addToCart('Adidas GAZELLE LO PRO SHOES',1700000,'images/Adidas GAZELLE LO PRO SHOES 1.avif')">Add to Cart</button>
+      </div>
+      <div class="product-card" onclick="openDetail('PUMA x SPARCO Speedcat',1999000,'images/PUMA x SPARCO Speedcat OG(1).avif')">
+        <img src="images/PUMA x SPARCO Speedcat OG(1).avif">
+        <h3>PUMA x SPARCO Speedcat</h3>
+        <p class="variant">Sneakers Shoes · Black</p>
+        <p class="price">Rp 1.999.000</p>
+        <button onclick="event.stopPropagation(); addToCart('PUMA x SPARCO Speedcat',1999000,'images/PUMA x SPARCO Speedcat OG(1).avif')">Add to Cart</button>
+      </div>
+      <div class="product-card" onclick="openDetail('PUMA x SPARCO Speedcat red',1999000,'images/PUMA x SPARCO Speedcat red(1).avif')">
+        <img src="images/PUMA x SPARCO Speedcat red(1).avif">
+        <h3>PUMA x SPARCO Speedcat red</h3>
+        <p class="variant">Sneakers Shoes · Red</p>
+        <p class="price">Rp 1.999.000</p>
+        <button onclick="event.stopPropagation(); addToCart('PUMA x SPARCO Speedcat red',1999000,'images/PUMA x SPARCO Speedcat red(1).avif')">Add to Cart</button>
+      </div>
+      <div class="product-card" onclick="openDetail('Salomon XT-6 GORE-TEX',2699000,'images/XT-6 GORE-TEX 1.avif')">
+        <img src="images/XT-6 GORE-TEX 1.avif">
+        <h3>Salomon XT-6 GORE-TEX</h3>
+        <p class="variant">Trail · Black/Silver</p>
+        <p class="price">Rp 2.699.000</p>
+        <button onclick="event.stopPropagation(); addToCart('Salomon XT-6 GORE-TEX',2699000,'images/XT-6 GORE-TEX 1.avif')">Add to Cart</button>
+      </div>
+    </div>
+
+    <button class="slide-btn right" onclick="slideRight()">›</button>
+  </div>
+</section>
+
+<!-- BEST SELLER -->
+  <section id="best">
+    <h2>Best Seller</h2>
+
+    <div class="products">
+      <div class="card" onclick="openDetail('Onitsuka Tiger TOKUTEN',1499000,'images/Onitsuka Tiger TOKUTEN.webp')">
+        <img src="images/Onitsuka Tiger TOKUTEN.webp">
+        <div class="title">Onitsuka Tiger TOKUTEN</div>
+        <div class="price">Rp 1.499.000</div>
+        <button class="btn" onclick="event.stopPropagation(); addToCart('Onitsuka Tiger TOKUTEN',1499000,'images/Onitsuka Tiger TOKUTEN.webp')">Add to Cart</button>
+      </div>
+      <div class="card" onclick="openDetail('PUMA x SPARCO Speedcat',1999000,'images/PUMA x SPARCO Speedcat OG(1).avif')">
+         <img src="images/PUMA x SPARCO Speedcat OG(2).avif">
+         <div class="title">PUMA x SPARCO Speedcat</div>
+         <div class="price">Rp 1.999.000</div>
+         <button class="btn" onclick="event.stopPropagation(); addToCart('PUMA x SPARCO Speedcat',1999000,'images/PUMA x SPARCO Speedcat OG(1).avif')">Add to Cart</button>
+       </div>
+      <div class="card" onclick="openDetail('Adidas Handball Spezial',1699000,'images/Adidas Handball Spezial Blue.avif')">
+        <img src="images/Adidas Handball Spezial Blue (4).avif">
+        <div class="title">Adidas Handball Spezial</div>
+        <div class="price">Rp 1.699.000</div>
+        <button class="btn" onclick="event.stopPropagation(); addToCart('Adidas Handball Spezial',1699000,'images/Adidas Handball Spezial Blue.avif')">Add to Cart</button>
+      </div>
+      <div class="card" onclick="openDetail('New Balance 574 trainers',1399000,'images/new-balance-574-trainers.webp')">
+        <img src="images/new-balance-574-trainers (3).webp">
+        <div class="title">New Balance 574 trainers</div>
+        <div class="price">Rp 1.399.000</div>
+        <button class="btn" onclick="event.stopPropagation(); addToCart('New Balance 574 trainers',1399000,'images/new-balance-574-trainers.webp')">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+<!-- COMMENTS SECTION -->
+<section class="testimonials" id="comments">
+  <div class="comments-header">
+    <h2>Apa Kata Mereka?</h2>
+    <button id="toggleCommentsBtn" class="toggle-btn" onclick="toggleComments()">Sembunyikan Komentar</button>
+  </div>
+  
+  <div id="commentsContent">
+    <div class="comment-form-container">
+      <form id="commentForm" onsubmit="event.preventDefault(); addComment();">
+      <div class="form-row">
+        <input type="text" id="commentName" placeholder="Nama Anda" required>
+        <div class="stars-input">
+          <select id="commentRating" required>
+            <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+            <option value="4">⭐⭐⭐⭐ (4/5)</option>
+            <option value="3">⭐⭐⭐ (3/5)</option>
+            <option value="2">⭐⭐ (2/5)</option>
+            <option value="1">⭐ (1/5)</option>
+          </select>
+        </div>
+      </div>
+      <textarea id="commentText" placeholder="Tulis komentar Anda tentang Kicksy.id..." required></textarea>
+      <button type="submit" class="btn">Kirim Komentar</button>
+    </form>
+  </div>
+
+  <div class="testimonial-grid" id="commentList">
+    <!-- Komentar Statis (Default) -->
+    <div class="testi-card">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p>"Sepatu Kanky nya original banget, pengiriman cepet dan CS nya ramah. Bakal langganan di sini!"</p>
+      <div class="user">- Andi, Jakarta</div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p>"Dapet promo KICKSY10 lumayan banget buat beli Nike Dunk. Barang sampe dengan aman pake double box."</p>
+      <div class="user">- Budi, Bandung</div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p>"Gak nyangka brand lokal sekarang kualitasnya oke banget. Thanks Kicksy udah kurasi produk lokal!"</p>
+      <div class="user">- Citra, Surabaya</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about-section">
+  <div class="about-container">
+    <h1 class="about-title">KICKSY.ID — LANGKAH GAYA LO DIMULAI DI SINI</h1>
+    
+    <div class="about-content">
+      <p>Kicksy ID hadir buat lo yang ingin tampil keren, simpel, dan percaya diri lewat pilihan sepatu terbaik. Berdiri sejak 2024, kami menyediakan sepatu pria dan wanita dari brand lokal maupun internasional, dengan kualitas yang terjamin dan gaya yang selalu up-to-date.</p>
+      
+      <p>Buat kami, sepatu bukan cuma pelengkap outfit, tapi bagian penting dari identitas diri. Karena itu, setiap produk di Kicksy ID dipilih dengan mempertimbangkan desain, kenyamanan, dan tren terbaru—cocok buat aktivitas sehari-hari sampai hangout.</p>
+      
+      <p>Kicksy ID bukan sekadar toko sepatu, tapi tempat buat lo mengekspresikan diri tanpa batas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2>Contact & Social</h2>
+  <div class="socials">
+    <a href="https://wa.me/62895413318989">WhatsApp</a>
+    <a href="https://https://www.instagram.com/iqbalibl01?igsh=MW15OGVkajcyODZ3Mw==">Instagram</a>
+    <a href="https://tiktok.com/@butterscotch_016">TikTok</a>
+  </div>
+</section>
+
+<div id="bagBackdrop" class="bag-backdrop" onclick="closeBag()"></div>
+<div id="bagDrawer" class="bag-drawer">
+  <div class="bag-head">
+    <div>Tas Belanja</div>
+    <button class="close" onclick="closeBag()">×</button>
+  </div>
+  <div id="bagItems" class="bag-items"></div>
+  <div class="bag-foot">
+    <div class="totals">Total: <span id="bagTotal">Rp 0</span></div>
+    <div class="actions">
+      <button class="btn" onclick="goToCart()">Lihat Keranjang</button>
+    </div>
+  </div>
+  <div class="bag-empty" id="bagEmpty">Tas belanja kosong</div>
+</div>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="newsletter-wrap">
+    <h2>Stay updated bareng Kicksy ID</h2>
+    <p>Dapatkan info rilisan terbaru dari brand lokal & global, plus promo menarik langsung ke kamu.</p>
+    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Terima kasih sudah berlangganan!');">
+      <input type="email" placeholder="Alamat Email Anda" required>
+      <button type="submit" class="btn">Daftar Sekarang</button>
+    </form>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <h2>FAQ</h2>
+
+  <div class="faq-item">
+    <button class="faq-question">Apakah sepatu original?</button>
+    <div class="faq-answer">Ya, semua produk di Kicksy ID original.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">Berapa lama pengiriman?</button>
+    <div class="faq-answer">Estimasi 2–5 hari kerja.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">KICKSY</div>
+      <p>Destinasi utama sneakerhead Indonesia untuk koleksi brand global dan lokal terbaik.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Belanja</h4>
+      <a href="shop.html">Katalog</a>
+      <a href="#promo">Promo</a>
+      <a href="#best">Best Seller</a>
+    </div>
+    <div class="footer-links">
+      <h4>Bantuan</h4>
+      <a href="#faq">FAQ</a>
+      <a href="#">Pengiriman</a>
+      <a href="#">Kebijakan Pengembalian</a>
+    </div>
+    <div class="footer-links">
+      <h4>Stay Connected</h4>
+      <a href="https://www.instagram.com/iqbalibl01?igsh=MW15OGVkajcyODZ3Mw==">Instagram</a>
+      <a href="https://tiktok.com/@butterscotch_016">TikTok</a>
+      <a href="https://wa.me/62895413318989">WhatsApp</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 kicksy.id — All Rights Reserved</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

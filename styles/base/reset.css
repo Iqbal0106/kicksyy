@@ -1,0 +1,44 @@
+/* =====================
+   RESET & BASE GLOBAL
+   Box model, scroll, body dasar.
+===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #ffffff;
+  color: var(--text);
+  transition: var(--transition);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+body.gradient-bg {
+  background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+  background-attachment: fixed;
+}
+
+section {
+  padding: 4rem 2rem;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.no-scroll {
+  overflow: hidden;
+}

@@ -1,0 +1,18 @@
+/* =====================
+   CSS VARIABLES / THEME
+   Semua design token ada di sini.
+   Ubah di sini untuk mengganti tema global.
+===================== */
+:root {
+  --bg: #ffffff;
+  --surface: #f8f9fa;
+  --card: #ffffff;
+  --card-strong: #e9ecef;
+  --text: #212529;
+  --muted: #6c757d;
+  --accent: #007bff;
+  --accent-soft: rgba(0, 123, 255, 0.1);
+  --border: #dee2e6;
+  --shadow: 0 2px 4px rgba(0,0,0,0.1);
+  --transition: all 0.3s ease;
+}
